@@ -27,10 +27,10 @@ pipeline {
                         
                         // run tests
                         sh '''
-                        deno task test | tee test_output.txt
-                        TEST_EXIT_CODE=$?
+                        deno task test > test_output.txt
                         if [ $TEST_EXIT_CODE -ne 0 ]; then
                             echo "Tests failed!"
+                            cat test_output.txt
                             exit $TEST_EXIT_CODE
                         fi
                         '''
