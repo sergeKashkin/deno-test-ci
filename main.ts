@@ -14,6 +14,10 @@ app.get("/candies", (_req: Request, res: Response) => {
   res.status(200).send(candies);
 });
 
+app.get("/candies/special", (_req, res) => {
+  res.status(200).json({ msg: "special test" });
+});
+
 app.get("/candies/:id", (req, res) => {
   const id = Number(req.params.id);
   const candy = candies.find(c => c.id == id);
@@ -21,9 +25,6 @@ app.get("/candies/:id", (req, res) => {
   res.status(400).json({ msg: "Candy not found" });
 });
 
-app.get("/candies/special", (_req, res) => {
-  res.status(200).json({ msg: "special test" });
-})
 
 app.listen(port, () => {
   console.log(`Listening on ${port}...`);
