@@ -26,7 +26,10 @@ pipeline {
                         sleep(time: 5) // wait for the app to start
                         
                         // run tests
-                        sh 'set -e deno task test | tee test_output.txt'
+                        sh '''
+                        set -e
+                        deno task test | tee test_output.txt
+                        '''
                         
                         // run benchmark
                         sh 'deno task bench | tee bench_output.txt'
