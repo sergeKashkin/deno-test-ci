@@ -22,7 +22,7 @@ app.get("/candies/:id", (req, res) => {
 });
 
 app.get("/candies/special", (_req, res) => {
-  res.status(200).json({ msg: "test" });
+  res.status(200).json({ msg: "special test" });
 })
 
 app.listen(port, () => {

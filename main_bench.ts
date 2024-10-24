@@ -7,3 +7,7 @@ Deno.bench("Single Candy", async () => {
 Deno.bench("All Candies", async () => {
     await fetch(`${stagingUrl}/candies`);
 });
+
+Deno.bench("Special Candy", async () => {
+    await fetch(`${stagingUrl}/candies/special`);
+})
