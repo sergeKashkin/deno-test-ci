@@ -27,8 +27,12 @@ pipeline {
                         
                         // run tests
                         sh '''
-                        set -e
                         deno task test | tee test_output.txt
+                        TEST_EXIT_CODE=$?
+                        if [ $TEST_EXIT_CODE -ne 0 ]; then
+                            echo "Tests failed!"
+                            exit $TEST_EXIT_CODE
+                        fi
                         '''
                         
                         // run benchmark
