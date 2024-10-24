@@ -21,6 +21,10 @@ app.get("/candies/:id", (req, res) => {
   res.status(400).json({ msg: "Candy not found" });
 });
 
+app.get("/candies/special", (_req, res) => {
+  res.status(200).json({ msg: "test" });
+})
+
 app.listen(port, () => {
   console.log(`Listening on ${port}...`);
 });
