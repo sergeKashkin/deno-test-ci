@@ -1,0 +1,62 @@
+[
+    {
+      "id": 1,
+      "title": "Snickers",
+      "company": "Mars, Incorporated",
+      "date": "1930"
+    },
+    {
+      "id": 2,
+      "title": "M&Ms",
+      "company": "Mars, Incorporated",
+      "date": "1941"
+    },
+    {
+      "id": 3,
+      "title": "Reese's Peanut Butter Cups",
+      "company": "The Hershey Company",
+      "date": "1928"
+    },
+    {
+      "id": 4,
+      "title": "KitKat",
+      "company": "Nestlé",
+      "date": "1935"
+    },
+    {
+      "id": 5,
+      "title": "Twix",
+      "company": "Mars, Incorporated",
+      "date": "1967"
+    },
+    {
+      "id": 6,
+      "title": "Skittles",
+      "company": "Mars, Incorporated",
+      "date": "1974"
+    },
+    {
+      "id": 7,
+      "title": "Hershey's Milk Chocolate",
+      "company": "The Hershey Company",
+      "date": "1900"
+    },
+    {
+      "id": 8,
+      "title": "Milky Way",
+      "company": "Mars, Incorporated",
+      "date": "1923"
+    },
+    {
+      "id": 9,
+      "title": "Starburst",
+      "company": "Mars, Incorporated",
+      "date": "1960"
+    },
+    {
+      "id": 10,
+      "title": "Ferrero Rocher",
+      "company": "Ferrero",
+      "date": "1982"
+    }
+  ]
