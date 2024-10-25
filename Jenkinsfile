@@ -11,6 +11,7 @@ pipeline {
         stage('build') {
             steps {
                 script {
+                    sh 'cd ./be'
                     docker.build('deno-app-image', '-f Dockerfile .')
                 }
                 echo 'Image built.'
