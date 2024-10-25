@@ -10,6 +10,8 @@ const port = Number(Deno.env.get("PORT")) || 3000;
 
 app.use(reqLogger);
 
+app.use('/images', express.static("images"))
+
 app.get("/candies", (_req: Request, res: Response) => {
   res.status(200).send(candies);
 });

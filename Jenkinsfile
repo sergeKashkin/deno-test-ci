@@ -23,7 +23,7 @@ pipeline {
             }
         }
         
-        stage('build') {
+        stage('build be') {
             when {
                 expression { env.BUILD_BACKEND == 'true' }
             }
