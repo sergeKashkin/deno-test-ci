@@ -47,7 +47,7 @@ export default async function Home() {
                       <TableCell>{post.date}</TableCell>
                       
                       <HoverCardContent className="shadow-md inline-flex w-auto cursor-default">
-                        <Image 
+                        <Image
                           src={`${url}/images/${post.id}.jpg`}
                           width={IMAGE_DIMENSIONS}
                           height={IMAGE_DIMENSIONS}
