@@ -18,7 +18,7 @@ pipeline {
                     
                     // Determine if there are changes in backend or frontend directories
                     env.BUILD_BACKEND = (changes.any { it.startsWith('be/') } || env.MANUAL_TRIGGER == 'true') ? 'true' : 'false'
-                    env.BUILD_FRONTEND = (changes.any { it.startsWith('frontend/') } || env.MANUAL_TRIGGER == 'true') ? 'true' : 'false'
+                    env.BUILD_FRONTEND = (changes.any { it.startsWith('fe/') } || env.MANUAL_TRIGGER == 'true') ? 'true' : 'false'
                 }
             }
         }
@@ -48,7 +48,7 @@ pipeline {
                             
                             // run tests
                              sh '''
-                            deno task test > test_output.txt 2>&1
+                            deno task test > test_output.txt
                             TEST_EXIT_CODE=$?
                             
                             if [ $TEST_EXIT_CODE -ne 0 ]; then
@@ -59,7 +59,12 @@ pipeline {
                             '''
                             
                             // run benchmark
-                            sh 'deno task bench | tee bench_output.txt'
+                            sh 'deno task bench > bench_output.txt'
+                            
+                            sh '''
+                                cp test_output.txt $WORKSPACE/test_output.txt
+                                cp bench_output.txt $WORKSPACE/bench_output.txt
+                            '''
                         }
                        
                     }
