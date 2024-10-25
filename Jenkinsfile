@@ -8,36 +8,60 @@ pipeline {
             }
         }
         
-        stage('build') {
+        stage('determine changes') {
             steps {
                 script {
-                    sh 'cd ./be'
-                    docker.build('deno-app-image', '-f Dockerfile .')
+                    def changes = sh(script: "git diff --name-only HEAD~1 HEAD", returnStdout: true).trim().split("\n")
+                    
+                    // Check if the build was triggered manually
+                    env.MANUAL_TRIGGER = currentBuild.getBuildCauses().toString().contains("UserIdCause") ? 'true' : 'false'
+                    
+                    // Determine if there are changes in backend or frontend directories
+                    env.BUILD_BACKEND = (changes.any { it.startsWith('be/') } || env.MANUAL_TRIGGER == 'true') ? 'true' : 'false'
+                    env.BUILD_FRONTEND = (changes.any { it.startsWith('frontend/') } || env.MANUAL_TRIGGER == 'true') ? 'true' : 'false'
                 }
-                echo 'Image built.'
             }
         }
         
-        stage('run app and tests in docker') {
+        stage('build') {
+            when {
+                expression { env.BUILD_BACKEND == 'true' }
+            }
+            steps {
+               dir('be') {
+                    script {
+                        docker.build('deno-app-image', '-f Dockerfile .')
+                    }
+                    echo 'Image built.'
+                } 
+            }
+        }
+        
+        stage('run be app and tests in docker') {
             steps {
                 script {
                     docker.image('deno-app-image').inside {
-                        // start app
-                        sh 'deno task start &'
-                        sleep(time: 5) // wait for the app to start
-                        
-                        // run tests
-                        sh '''
-                        deno task test > test_output.txt
-                        if [ $TEST_EXIT_CODE -ne 0 ]; then
-                            echo "Tests failed!"
-                            cat test_output.txt
-                            exit $TEST_EXIT_CODE
-                        fi
-                        '''
-                        
-                        // run benchmark
-                        sh 'deno task bench | tee bench_output.txt'
+                        dir('be') {
+                             // start app
+                            sh 'deno task start &'
+                            sleep(time: 5) // wait for the app to start
+                            
+                            // run tests
+                             sh '''
+                            deno task test > test_output.txt 2>&1
+                            TEST_EXIT_CODE=$?
+                            
+                            if [ $TEST_EXIT_CODE -ne 0 ]; then
+                                echo "Tests failed!"
+                                cat test_output.txt
+                                exit $TEST_EXIT_CODE
+                            fi
+                            '''
+                            
+                            // run benchmark
+                            sh 'deno task bench | tee bench_output.txt'
+                        }
+                       
                     }
                 }
             }
@@ -51,25 +75,25 @@ pipeline {
         
         stage('report test and benchmark results') {
                 steps {
-        script {
-            // Check if test and benchmark result files exist
-            sh '''
-            if [ -f test_output.txt ]; then
-                echo "Test output exists."
-            else
-                echo "Test output does not exist!"
-                exit 1
-            fi
-            
-            if [ -f bench_output.txt ]; then
-                echo "Benchmark output exists."
-            else
-                echo "Benchmark output does not exist!"
-                exit 1
-            fi
-            '''
-        }
-    }
+                    script {
+                        // Check if test and benchmark result files exist
+                        sh '''
+                        if [ -f test_output.txt ]; then
+                            echo "Test output exists."
+                        else
+                            echo "Test output does not exist!"
+                            exit 1
+                        fi
+                        
+                        if [ -f bench_output.txt ]; then
+                            echo "Benchmark output exists."
+                        else
+                            echo "Benchmark output does not exist!"
+                            exit 1
+                        fi
+                        '''
+                    }
+                }
         }
         
         stage('deploy') {
