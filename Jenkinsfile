@@ -37,6 +37,19 @@ pipeline {
             }
         }
         
+        stage ('build fe') {
+            when {
+                expression { env.BUILD_FRONTEND == 'true' }
+            }
+            steps {
+                dir('fe') {
+                    script {
+                        docker.build('next-app-image', '-f Dockerfile .')
+                    }
+                }
+            }
+        }
+
         stage('run be app and tests in docker') {
             steps {
                 script {
