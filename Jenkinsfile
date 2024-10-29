@@ -36,19 +36,6 @@ pipeline {
                 } 
             }
         }
-        
-        stage ('build fe') {
-            when {
-                expression { env.BUILD_FRONTEND == 'true' }
-            }
-            steps {
-                dir('fe') {
-                    script {
-                        docker.build('next-app-image', '-f Dockerfile .')
-                    }
-                }
-            }
-        }
 
         stage('run be app and tests in docker') {
             steps {
@@ -85,6 +72,34 @@ pipeline {
             }
         }
         
+        stage ('build fe') {
+            when {
+                expression { env.BUILD_FRONTEND == 'true' }
+            }
+            steps {
+                dir('fe') {
+                    script {
+                        docker.build('next-app-image', '-f Dockerfile .')
+                    }
+                }
+            }
+        }
+
+        stage('test fe') {
+            when {
+                expression { env.BUILD_FRONTEND == 'true' }
+            }
+            steps {
+                dir('fe') {
+                    script {
+                        docker.build('next-app-image-tester', '--target tester .').inside {
+                            sh 'npm test'
+                        }
+                    }
+                }
+            }
+        }
+
         stage('archive test results') {
             steps {
                 archiveArtifacts artifacts: 'test_output.txt, bench_output.txt', allowEmptyArchive: true
