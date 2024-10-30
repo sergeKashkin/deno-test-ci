@@ -1,1 +1,9 @@
 .vscode
+.terraform
+# Ignore Terraform state files and backups
+*.tfstate            # Ignore Terraform state files
+*.tfstate.*          # Ignore any backups or additional state files
+*.tfstate.backup     # Ignore Terraform state backup files
+*.tfstate.lock.info  # Ignore lock files
+terraform.*
+**.pem

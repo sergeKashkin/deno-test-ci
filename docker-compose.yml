@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  backend:
+    container_name: backend
+    # image: <aws_account_id>.dkr.ecr.<region>.amazonaws.com/<backend-repo-name>:deno-backend-latest
+    image: deno-app-image
+    restart: always
+    ports: 
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - frontend
+
+  frontend:
+    container_name: frontend
+    # image: <aws_account_id>.dkr.ecr.<region>.amazonaws.com/<frontend-repo-name>:deno-frontend-latest
+    image: next-app-image
+    restart: always
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - BACKEND_URL=http://backend:3000

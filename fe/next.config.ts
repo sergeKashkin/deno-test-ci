@@ -22,6 +22,12 @@ const nextConfig: NextConfig = {
         hostname: 'host.docker.internal',
         port: '3000',
         pathname: '**'
+      },
+      {
+        protocol: 'http',
+        hostname: 'backend',
+        port: '3000',
+        pathname: '**',
       }
     ],
   }

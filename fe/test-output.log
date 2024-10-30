@@ -1,0 +1,84 @@
+yarn run v1.22.22
+$ jest
+jest-haste-map: Haste module naming collision: fe
+  The following files share their name; please adjust your hasteImpl:
+    * <rootDir>/.next/standalone/package.json
+    * <rootDir>/package.json
+
+(node:28) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+  console.error
+    In HTML, <div> cannot be a child of <tr>.
+    This will cause a hydration error.
+    
+      <div className="flex flex-...">
+        <header>
+        <main className="flex-grow p-4">
+          <Table>
+            <div className="relative w...">
+              <table ref={null} className="w-full cap...">
+                <TableCaption>
+                <TableHeader>
+                <TableBody>
+                  <tbody ref={null} className={"[&_tr:la..."}>
+                    <TableRow className="cursor-poi...">
+    >                 <tr
+    >                   ref={null}
+    >                   className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted cursor-pointer"
+    >                 >
+                        ...
+                          <DismissableLayer asChild={true} disableOutsidePointerEvents={false} onInteractOutside={undefined} ...>
+                            <Primitive.div asChild={true} ref={function} style={{...}} onFocusCapture={function handleEvent} ...>
+                              <Slot style={{...}} onFocusCapture={function handleEvent} onBlurCapture={function handleEvent} ...>
+                                <SlotClone style={{...}} onFocusCapture={function handleEvent} ...>
+                                  <PopperContent __scopePopper={{Popper:[...]}} data-state="open" align="center" ...>
+    >                               <div
+    >                                 ref={function}
+    >                                 data-radix-popper-content-wrapper=""
+    >                                 style={{position:"fixed",left:0,top:0,transform:"translate(...",minWidth:"max-content",zIndex:undefined, ...}}
+    >                                 dir={undefined}
+    >                               >
+                    ...
+        ...
+
+      at validateDOMNesting (node_modules/react-dom/cjs/react-dom-client.development.js:2468:19)
+      at completeWork (node_modules/react-dom/cjs/react-dom-client.development.js:13652:15)
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:543:16)
+      at completeUnitOfWork (node_modules/react-dom/cjs/react-dom-client.development.js:15110:19)
+      at performUnitOfWork (node_modules/react-dom/cjs/react-dom-client.development.js:15013:11)
+      at workLoopSync (node_modules/react-dom/cjs/react-dom-client.development.js:14826:41)
+      at renderRootSync (node_modules/react-dom/cjs/react-dom-client.development.js:14806:11)
+      at performWorkOnRoot (node_modules/react-dom/cjs/react-dom-client.development.js:14301:13)
+      at performSyncWorkOnRoot (node_modules/react-dom/cjs/react-dom-client.development.js:15866:7)
+      at flushSyncWorkAcrossRoots_impl (node_modules/react-dom/cjs/react-dom-client.development.js:15730:21)
+      at commitRootImpl (node_modules/react-dom/cjs/react-dom-client.development.js:15322:7)
+      at commitRoot (node_modules/react-dom/cjs/react-dom-client.development.js:15182:11)
+      at commitRootWhenReady (node_modules/react-dom/cjs/react-dom-client.development.js:14522:7)
+      at performWorkOnRoot (node_modules/react-dom/cjs/react-dom-client.development.js:14448:15)
+      at performWorkOnRootViaSchedulerTask (node_modules/react-dom/cjs/react-dom-client.development.js:15852:7)
+      at performWorkUntilDeadline (node_modules/scheduler/cjs/scheduler.development.js:44:48)
+      at Timeout.task [as _onTimeout] (node_modules/jsdom/lib/jsdom/browser/Window.js:520:19)
+
+PASS __tests__/Home.test.tsx
+  Home component
+    ✓ renders a table with candies data (141 ms)
+    ✓ renders correct image src and alt text for each image on hovercard (2838 ms)
+
+-----------------|---------|----------|---------|---------|-------------------
+File             | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+-----------------|---------|----------|---------|---------|-------------------
+All files        |     100 |      100 |     100 |     100 |                   
+ app             |     100 |      100 |     100 |     100 |                   
+  page.tsx       |     100 |      100 |     100 |     100 |                   
+ components/ui   |     100 |      100 |     100 |     100 |                   
+  hover-card.tsx |     100 |      100 |     100 |     100 |                   
+  table.tsx      |     100 |      100 |     100 |     100 |                   
+ lib             |     100 |      100 |     100 |     100 |                   
+  utils.ts       |     100 |      100 |     100 |     100 |                   
+-----------------|---------|----------|---------|---------|-------------------
+Test Suites: 1 passed, 1 total
+Tests:       2 passed, 2 total
+Snapshots:   0 total
+Time:        5.078 s
+Ran all test suites.
+Done in 9.52s.
