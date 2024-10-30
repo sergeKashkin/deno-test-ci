@@ -6,7 +6,7 @@ FROM base AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY package.json ./
-RUN npm --legacy-peer-deps update && npm --legacy-peer-deps install
+RUN yarn install --verbose
 
 # build the solution
 FROM base AS builder
