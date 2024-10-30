@@ -93,7 +93,7 @@ pipeline {
                 dir('fe') {
                     script {
                         docker.build('next-app-image-tester', '--target tester .').inside {
-                            sh 'npm test'
+                            sh 'yarn test'
                         }
                     }
                 }

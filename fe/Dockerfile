@@ -21,7 +21,7 @@ WORKDIR /app
 COPY --from=builder /app/.next ./.next
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN npm run test
+# Only preparing the test stage
 
 # Prod image
 FROM base AS runner
