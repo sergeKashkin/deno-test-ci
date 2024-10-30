@@ -28,7 +28,7 @@ pipeline {
                 expression { env.BUILD_BACKEND == 'true' }
             }
             steps {
-               dir('be') {
+              dir('be') {
                     script {
                         docker.build('deno-app-image', '-f Dockerfile .')
                     }
@@ -92,9 +92,9 @@ pipeline {
             steps {
                 dir('fe') {
                     script {
-                        docker.build('next-app-image-tester', '--target tester .').inside {
-                            sh 'yarn test'
-                        }
+                        def testingImage = docker.build('next-app-image-tester', '--target tester .')
+                        // run test inside the container and not in the jenkins workspace...
+                        sh "docker run --rm next-app-image-tester yarn test"
                     }
                 }
             }

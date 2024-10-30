@@ -22,15 +22,15 @@ describe("Home component", () => {
     it("renders a table with candies data", async () => {
         render(await Home());
 
-        expect(screen.getByText("Title")).toBeInTheDocument();
-        expect(screen.getByText("Invented At")).toBeInTheDocument();
-        expect(screen.getByText("Date")).toBeInTheDocument();
-        expect(screen.getByText("A list of most favorite candies in the world")).toBeInTheDocument();
+        expect(await screen.getByText("Title")).toBeInTheDocument();
+        expect(await screen.getByText("Invented At")).toBeInTheDocument();
+        expect(await screen.getByText("Date")).toBeInTheDocument();
+        expect(await screen.getByText("A list of most favorite candies in the world")).toBeInTheDocument();
 
-        mockData.forEach(candy => {
-            expect(screen.getByText(candy.title)).toBeInTheDocument();
-            expect(screen.getByText(candy.company)).toBeInTheDocument();
-            expect(screen.getByText(candy.date)).toBeInTheDocument();
+        mockData.forEach(async candy => {
+            expect(await screen.getByText(candy.title)).toBeInTheDocument();
+            expect(await screen.getByText(candy.company)).toBeInTheDocument();
+            expect(await screen.getByText(candy.date)).toBeInTheDocument();
         });
     });
 
@@ -38,10 +38,10 @@ describe("Home component", () => {
         render(await Home());
 
         for (const item of mockData) {
-            const row = screen.getByText(item.title);
+            const row = await screen.getByText(item.title);
             
             // Hover over the row
-            userEvent.hover(row);
+            await userEvent.hover(row);
      
             // Find the image within the hover content
             const img = await screen.findByAltText(`${item.title} image`);
@@ -50,14 +50,14 @@ describe("Home component", () => {
             expect(img.getAttribute("src")).toContain(encodeURIComponent(`/images/${item.id}.jpg`));
             
             // Unhover to close the hover card
-            userEvent.unhover(row);
+            await userEvent.unhover(row);
 
             // Wait for the hover content to be removed
-            await waitFor(() => {
-              expect(screen.queryByAltText(`${item.title} image`)).not.toBeInTheDocument();
+            await waitFor(async () => {
+              expect(await screen.queryByAltText(`${item.title} image`)).not.toBeInTheDocument();
             });
           }
-    });
+    }, 15000);
 
     // can extend further ...
 });

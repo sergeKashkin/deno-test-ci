@@ -1,7 +1,6 @@
 FROM node:lts-alpine as base
 
 FROM base AS deps
-
 # Install deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
