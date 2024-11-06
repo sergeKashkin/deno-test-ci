@@ -2,9 +2,9 @@ resource "aws_security_group" "deno-test-sg" {
   name_prefix = "app-server-sg-"
 
   ingress {
-    description = "Allow HTTP traffic on port 3001"
-    from_port   = 3001
-    to_port     = 3001
+    description = "Allow HTTP traffic on port 3000"
+    from_port   = 3000
+    to_port     = 3000
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -25,6 +25,6 @@ resource "aws_security_group" "deno-test-sg" {
   }
 
   tags = {
-    Name = "3001-open"
+    Name = "3000-open"
   }
 }

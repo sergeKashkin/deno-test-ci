@@ -6,18 +6,18 @@ services:
     image: deno-app-image
     restart: always
     ports: 
-      - "3000:3000"
+      - "3001:3001"
     environment:
       - NODE_ENV=production
-    depends_on:
-      - frontend
 
   frontend:
     container_name: frontend
     image: next-app-image
     restart: always
     ports:
-      - "3001:3001"
+      - "3000:3000"
     environment:
       - NODE_ENV=production
-      - BACKEND_URL=http://backend:3000
+      - BACKEND_URL=http://backend:3001
+    depends_on:
+      - backend

@@ -12,4 +12,7 @@ ENV DENO_DIR=/deno-dir
 
 RUN deno cache main.ts
 
+EXPOSE 3001
+ENV PORT=3001
+
 CMD ["task", "start"]

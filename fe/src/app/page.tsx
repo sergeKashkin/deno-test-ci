@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/hover-card";
 
 export default async function Home() {
-  const url: string = process.env.BACKEND_URL || "http://localhost:3000";
+  const url: string = process.env.BACKEND_URL || "http://localhost:3001";
   const data = await fetch(`${url}/candies`, { cache: 'no-store' });
   const posts: { id: number; title: string; date: string; company: string; }[] = await data.json();
   const IMAGE_DIMENSIONS: number = 150;

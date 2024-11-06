@@ -6,7 +6,7 @@ import { reqLogger } from "./logger.ts";
 import candies from './data.json' with { type: "json" };
 
 const app = express();
-const port = Number(Deno.env.get("PORT")) || 3000;
+const port = Number(Deno.env.get("PORT")) || 3001;
 
 app.use(reqLogger);
 
